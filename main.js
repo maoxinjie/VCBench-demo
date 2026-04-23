@@ -470,9 +470,6 @@ function renderApp() {
             <div class="section-heading compact-heading">
               <div class="section-kicker">References</div>
               <h3 class="section-title compact-title">References for datasets and models listed above</h3>
-              <p class="section-copy compact-copy">
-                References follow the original VCBench bibliography.
-              </p>
             </div>
             <div class="reference-grid">
               <article class="reference-card">
