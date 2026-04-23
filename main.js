@@ -2,24 +2,24 @@ const TASKS = [
   {
     id: "unseen-cell",
     title: "Unseen Cell",
-    short: "Generalization to unseen cell lines or patients under random and scFM-based split settings.",
+    short: "Generalization to unseen cell lines or patients under random and scFM-based splits.",
     figure: "./assets/figures/fig2-hires.png",
     preview: "./assets/figures/fig2.png",
     figureLabel: "Figure 2",
     color: "#EFF8F7",
     highlights: [
-      "scFM-based splits reveal a much harder and more realistic OOD setting.",
+      "scFM-based splits define a harder OOD setting.",
       "Linear Additive, BioLORD, and scLAMBDA remain relatively stable under cell-context shift.",
       "Cell embeddings help selectively rather than uniformly across models."
     ],
     description:
-      "This task tests whether models transfer to previously unseen cellular contexts. It highlights how conventional random splits can overestimate robustness by allowing similar cell states to appear across training and test sets.",
+      "This task measures transfer to unseen cellular contexts. Random splits can overestimate robustness because closely related cell states still appear on both sides of the split.",
     mediaType: "image"
   },
   {
     id: "unseen-perturbation",
     title: "Unseen Perturbations",
-    short: "Prediction of genetic and chemical perturbations that are not observed during training.",
+    short: "Prediction of genetic and chemical perturbations not observed during training.",
     figure: "./assets/figures/fig3-hires.png",
     preview: "./assets/figures/fig3.png",
     figureLabel: "Figure 3",
@@ -30,13 +30,13 @@ const TASKS = [
       "Several models capture broad trends but still miss perturbation-specific signals."
     ],
     description:
-      "This task evaluates extrapolation to unseen perturbations, including both single and combinational settings. It emphasizes that biologically meaningful evaluation requires more than global expression similarity.",
+      "This task evaluates extrapolation to unseen perturbations in both single and combinational settings. Global expression similarity alone does not capture perturbation-specific recovery.",
     mediaType: "image"
   },
   {
     id: "cross-dataset",
     title: "Cross-Dataset",
-    short: "Benchmarking data merging strategies, scaling, and alignment across compatible or heterogeneous studies.",
+    short: "Benchmarking merging, scaling, and alignment across compatible or heterogeneous studies.",
     figure: "./assets/figures/fig4-hires.png",
     preview: "./assets/figures/fig4.png",
     figureLabel: "Figure 4",
@@ -47,7 +47,7 @@ const TASKS = [
       "Merge-after and merge-before favor different metric behaviors."
     ],
     description:
-      "This task studies whether larger merged datasets really help. The main message is that integration depends on distribution alignment, feature-space design, and dataset compatibility rather than on scale alone.",
+      "This task asks when larger merged datasets help. Gains depend on distribution alignment, feature-space design, and dataset compatibility, not scale alone.",
     mediaType: "image"
   }
 ];
@@ -56,7 +56,7 @@ const EXTRA_SECTIONS = [
   {
     id: "metrics",
     title: "Metric View",
-    short: "A separate entry for metric-dependent evaluation and computational trade-offs.",
+    short: "Metric-dependent evaluation and compute trade-offs.",
     figure: "./assets/figures/fig5-hires.png",
     preview: "./assets/figures/fig5.png",
     figureLabel: "Figure 5",
@@ -67,13 +67,13 @@ const EXTRA_SECTIONS = [
       "Performance and compute efficiency should be considered together."
     ],
     description:
-      "Model ranking depends on the metric being used. Correlation, DEG recovery, distribution-level metrics, runtime, and GPU memory capture different aspects of perturbation prediction.",
+      "Model ranking depends on the metric. Correlation, DEG recovery, distribution-level metrics, runtime, and GPU memory capture different aspects of perturbation prediction.",
     mediaType: "image"
   },
   {
     id: "guidance",
     title: "Model Selection Guidance",
-    short: "A decision-oriented guide for choosing models under different tasks and practical constraints.",
+    short: "Choosing models across tasks and compute constraints.",
     figure: "./assets/figures/fig6.png",
     preview: "./assets/figures/fig6.png",
     figureLabel: "Figure 6",
@@ -356,18 +356,18 @@ function renderApp() {
           <div class="container">
             <div class="hero-copy-wrap">
               <div class="eyebrow">Benchmark Overview</div>
-              <h2>A structured benchmark for virtual cell prediction under realistic generalization scenarios</h2>
+              <h2>Benchmarking virtual cell models across generalization settings</h2>
               <p class="hero-copy">
-                VCBench benchmarks virtual cell models under unseen cellular contexts, unseen perturbations,
-                and cross-dataset integration. It also compares model behavior across evaluation metrics and compute budgets.
+                VCBench evaluates virtual cell models on unseen cellular contexts, unseen perturbations,
+                and cross-dataset integration, alongside metric-specific performance and compute cost.
               </p>
               <div class="hero-actions">
-                <a class="button primary" href="#resources">Browse coverage</a>
+                <a class="button primary" href="#resources">Datasets and models</a>
                 <a class="button secondary" href="#tasks">View tasks</a>
               </div>
               <div class="metrics-strip">
                 ${renderStatCard("Scenarios", "Unseen cells, unseen perturbations, and cross-dataset integration.", "#F3FBFA")}
-                ${renderStatCard("Metric View", "Global correlation, DEG recovery, and compute cost are all surfaced separately.", "#F2F8FB")}
+                ${renderStatCard("Metric View", "Global correlation, DEG recovery, and compute cost are reported separately.", "#F2F8FB")}
                 ${renderStatCard("Coverage", `${DATASETS.length} datasets and ${MODELS.length} models in this benchmark.`, "#F7F7F1")}
               </div>
             </div>
@@ -388,8 +388,8 @@ function renderApp() {
               <div class="section-kicker">Resources</div>
               <h3 class="section-title">Datasets and models in the benchmark</h3>
               <p class="section-copy">
-                The benchmark covers seven perturbation datasets and eleven models, including additive baselines,
-                latent-variable models, graph methods, and foundation-model-guided approaches.
+                The benchmark includes seven perturbation datasets and eleven models,
+                spanning additive baselines, latent-variable models, graph methods, and foundation-model-based approaches.
               </p>
             </div>
             <div class="resource-panels">
@@ -405,8 +405,8 @@ function renderApp() {
               <div class="section-kicker">Framework</div>
               <h3 class="section-title">How the benchmark is organized</h3>
               <p class="section-copy">
-                The benchmark standardizes preprocessing, evaluates each scenario separately,
-                and then interprets results through task-specific metrics and model selection guidance.
+                The pipeline standardizes preprocessing, evaluates each setting separately,
+                and reads results through task-specific metrics and model selection guidance.
               </p>
             </div>
             <div class="steps">
@@ -423,7 +423,7 @@ function renderApp() {
               <div class="section-kicker">Main Tasks</div>
               <h3 class="section-title">Three benchmark tasks</h3>
               <p class="section-copy">
-                The core benchmark asks whether models hold up under new cellular contexts,
+                The benchmark centers on three settings: unseen cells,
                 unseen perturbations, and cross-dataset integration.
               </p>
             </div>
@@ -439,7 +439,7 @@ function renderApp() {
               <div class="section-kicker">Metric View</div>
               <h3 class="section-title">Metric-dependent evaluation</h3>
               <p class="section-copy">
-                Model rankings change across correlation, DEG recovery,
+                Model rankings shift across correlation, DEG recovery,
                 distribution-level metrics, and compute cost.
               </p>
             </div>
@@ -455,8 +455,8 @@ function renderApp() {
               <div class="section-kicker">Model Selection</div>
               <h3 class="section-title">Selection guidance across models</h3>
               <p class="section-copy">
-                The guidance figure maps benchmark settings and compute constraints
-                to a smaller set of reasonable model choices.
+                The guidance figure maps benchmark setting and compute constraints
+                to a smaller set of model choices.
               </p>
             </div>
             <div class="extras-grid">
@@ -469,9 +469,9 @@ function renderApp() {
           <div class="container">
             <div class="section-heading compact-heading">
               <div class="section-kicker">References</div>
-              <h3 class="section-title compact-title">Datasets and model references used in resources</h3>
+              <h3 class="section-title compact-title">References for datasets and models listed above</h3>
               <p class="section-copy compact-copy">
-                References for the datasets and models named above, following the original VCBench bibliography.
+                References follow the original VCBench bibliography.
               </p>
             </div>
             <div class="reference-grid">
