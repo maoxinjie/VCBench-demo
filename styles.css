@@ -576,6 +576,8 @@ button {
 }
 
 .modal-media-wrap {
+  display: flex;
+  min-height: 0;
   padding: 1.2rem;
   border-right: 1px solid var(--line);
   overflow: auto;
@@ -583,12 +585,15 @@ button {
 }
 
 .modal-media-card {
-  min-height: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
   border-radius: 24px;
   border: 1px solid rgba(17, 24, 39, 0.08);
   background: rgba(255, 255, 255, 0.88);
   padding: 1rem;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .modal-toolbar {
@@ -621,7 +626,8 @@ button {
 }
 
 .modal-canvas {
-  min-height: 72vh;
+  flex: 1 1 auto;
+  min-height: 0;
   display: block;
   overflow: auto;
   padding: 1rem 0 2rem;
