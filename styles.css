@@ -933,10 +933,138 @@ button {
   display: none !important;
 }
 
+.guidance-board {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 1.4rem;
+  align-items: stretch;
+}
+
+.guidance-figure-slot {
+  display: grid;
+}
+
+.guidance-figure-slot .task-card {
+  height: 100%;
+}
+
+.guidance-decisions {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.decision-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.decision-item {
+  display: grid;
+  grid-template-columns: 4.6rem 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+.decision-item:first-child {
+  border-top: none;
+  padding-top: 0.25rem;
+}
+
+.decision-step {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0f766e;
+  text-transform: uppercase;
+  padding-top: 0.18rem;
+}
+
+.decision-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.decision-text {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.integration-block {
+  margin-top: 2.4rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.integration-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.2rem;
+  align-items: end;
+  margin-bottom: 1.4rem;
+}
+
+.integration-title {
+  margin: 0.3rem 0 0;
+  font-size: 1.3rem;
+}
+
+.integration-copy {
+  margin: 0.6rem 0 0;
+  max-width: 44rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.integration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
+.integration-steps {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.integration-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.step-code {
+  margin-top: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--text);
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
 @media (max-width: 1080px) {
   .resource-grid,
   .workflow-grid,
-  .modal-grid {
+  .modal-grid,
+  .guidance-board,
+  .integration-head {
     grid-template-columns: 1fr;
   }
 
@@ -947,6 +1075,14 @@ button {
   .metric-family-grid,
   .metric-findings-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .integration-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .integration-actions {
+    justify-content: flex-start;
   }
 
   .modal-media-wrap {
@@ -979,7 +1115,8 @@ button {
   .metrics-strip,
   .reference-grid,
   .metric-family-grid,
-  .metric-findings-grid {
+  .metric-findings-grid,
+  .integration-steps {
     grid-template-columns: 1fr;
   }
 

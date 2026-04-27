@@ -120,42 +120,42 @@ const DATASET_REFERENCES = [
   {
     label: "AdamsonWeissman2016_10X001 / AdamsonWeissman2016_10X010",
     ref: "[2]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://doi.org/10.1016/j.cell.2016.11.048",
     citation:
       "Britt Adamson et al. A multiplexed single-cell CRISPR screening platform enables systematic dissection of the unfolded protein response. Cell, 2016."
   },
   {
     label: "SrivatsanTrapnell2020_sciplex3",
     ref: "[4]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://www.science.org/doi/10.1126/science.aax6234",
     citation:
       "Sanjay R Srivatsan et al. Massively multiplex chemical transcriptomics at single-cell resolution. Science, 2020."
   },
   {
     label: "ReplogleWeissman2022_K562",
     ref: "[11]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://doi.org/10.1016/j.cell.2022.05.013",
     citation:
       "Joseph M Replogle et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. Cell, 2022."
   },
   {
     label: "McFarland2020",
     ref: "[36]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://www.nature.com/articles/s41467-020-17440-w",
     citation:
       "James M McFarland et al. Multiplexed single-cell transcriptional response profiling to define cancer vulnerabilities and therapeutic mechanism of action. Nature Communications, 2020."
   },
   {
     label: "Kang2018_CD4Tcells",
     ref: "[37]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://www.nature.com/articles/nbt.4042",
     citation:
       "Hyun Min Kang et al. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nature Biotechnology, 2018."
   },
   {
     label: "Norman2019",
     ref: "[38]",
-    url: DATASETS_DRIVE_URL,
+    url: "https://www.science.org/doi/10.1126/science.aax4438",
     citation:
       "Thomas M Norman et al. Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. Science, 2019."
   }
@@ -165,63 +165,63 @@ const MODEL_REFERENCES = [
   {
     label: "Linear Additive / Latent Additive / DecoderOnly",
     ref: "[15]",
-    url: "https://github.com/altoslabs/perturbench",
+    url: "https://arxiv.org/abs/2408.10609",
     citation:
       "Adapted from PerturBench baselines. Y Wu et al. PerturBench: Benchmarking machine learning models for cellular perturbation analysis. arXiv, 2025."
   },
   {
     label: "CPA",
     ref: "[21]",
-    url: "https://github.com/theislab/cpa",
+    url: "https://www.embopress.org/doi/full/10.15252/msb.202211517",
     citation:
       "Mohammad Lotfollahi et al. Predicting cellular responses to complex perturbations in high-throughput screens. Molecular Systems Biology, 2023."
   },
   {
     label: "GEARS",
     ref: "[24]",
-    url: "https://github.com/snap-stanford/GEARS",
+    url: "https://www.nature.com/articles/s41587-023-01905-6",
     citation:
       "Yusuf Roohani, Kexin Huang, and Jure Leskovec. Predicting transcriptional outcomes of novel multigene perturbations with GEARS. Nature Biotechnology, 2024."
   },
   {
     label: "BioLORD",
     ref: "[54]",
-    url: "https://github.com/nitzanlab/biolord",
+    url: "https://www.nature.com/articles/s41587-023-02079-x",
     citation:
       "Zoe Piran et al. Disentanglement of single-cell data with BioLORD. Nature Biotechnology, 2024."
   },
   {
     label: "SAMS-VAE",
     ref: "[55]",
-    url: "https://github.com/insitro/sams-vae",
+    url: "https://openreview.net/forum?id=DzaCE00jGV",
     citation:
       "Michael Bereket and Theofanis Karaletsos. Modelling cellular perturbations with the sparse additive mechanism shift variational autoencoder. NeurIPS, 2024."
   },
   {
     label: "PRnet",
     ref: "[56]",
-    url: "https://github.com/Perturbation-Response-Prediction/PRnet",
+    url: "https://www.nature.com/articles/s41467-024-53457-1",
     citation:
       "Xiaoning Qi et al. Predicting transcriptional responses to novel chemical perturbations using deep generative model for drug discovery. Nature Communications, 2024."
   },
   {
     label: "scLAMBDA",
     ref: "[57]",
-    url: "https://github.com/gefeiwang/scLAMBDA",
+    url: "https://www.biorxiv.org/content/10.1101/2024.12.04.626878v1",
     citation:
       "Gefei Wang et al. Modeling and predicting single-cell multi-gene perturbation responses with scLAMBDA. bioRxiv, 2024."
   },
   {
     label: "GenePert",
     ref: "[58]",
-    url: "https://github.com/zou-group/GenePert",
+    url: "https://www.biorxiv.org/content/10.1101/2024.10.27.620513v1",
     citation:
       "Yiqun T Chen and James Zou. GenePert: Leveraging GenePT embeddings for gene perturbation prediction. bioRxiv, 2024."
   },
   {
     label: "STATE",
     ref: "[59]",
-    url: "https://github.com/ArcInstitute/state",
+    url: "https://www.biorxiv.org/content/10.1101/2025.06.26.661135v2",
     citation:
       "Abhinav K Adduri et al. Predicting cellular responses to perturbation across diverse contexts with STATE. bioRxiv, 2025."
   }
@@ -288,6 +288,66 @@ const METRIC_KEY_FINDINGS = [
 const ALL_SECTIONS = [...TASKS, ...EXTRA_SECTIONS];
 const METRICS_SECTION = EXTRA_SECTIONS.find((section) => section.id === "metrics");
 const GUIDANCE_SECTION = EXTRA_SECTIONS.find((section) => section.id === "guidance");
+
+const INTEGRATION_REPO_URL = "https://github.com/maoxinjie/VCBench";
+const INTEGRATION_GUIDE_URL =
+  "https://github.com/maoxinjie/VCBench/blob/main/NEW_MODEL_INTEGRATION.md";
+
+const GUIDANCE_DECISIONS = [
+  {
+    step: "Stage 1",
+    title: "Define the task setting",
+    text: "Choose between unseen cells, unseen perturbations, and cross-dataset integration based on the question you want to answer."
+  },
+  {
+    step: "Stage 2",
+    title: "Match a model family",
+    text: "Use the figure to map task setting and evaluation target to a smaller set of candidate models."
+  },
+  {
+    step: "Stage 3",
+    title: "Check compute budget",
+    text: "Compare runtime and GPU memory before training, especially on larger datasets and batch sizes."
+  },
+  {
+    step: "Stage 4",
+    title: "Re-evaluate with multiple metrics",
+    text: "Avoid relying on a single score. Combine correlation, DEG, and distribution-level metrics before final selection."
+  }
+];
+
+const INTEGRATION_STEPS = [
+  {
+    step: "01",
+    title: "Implement the model class",
+    text: "Create a class that inherits PerturbationModel and implements forward, training_step, validation_step, and predict.",
+    code: "src/vcbench/modelcore/models/&lt;your_model&gt;.py"
+  },
+  {
+    step: "02",
+    title: "Add a Hydra config",
+    text: "Write a YAML config whose _target_ points to your class and whose parameters align with __init__.",
+    code: "src/vcbench/configs/model/&lt;your_model&gt;.yaml"
+  },
+  {
+    step: "03",
+    title: "Register the model",
+    text: "Import the new class inside models/__init__.py so Hydra and the entry point can resolve it.",
+    code: "from .your_model import YourModel"
+  },
+  {
+    step: "04",
+    title: "Wire sweep parameters",
+    text: "Extend train.py argparse and the override mapping so wandb sweep injections reach the final config.",
+    code: "_build_arg_parser() &middot; _apply_cli_overrides()"
+  },
+  {
+    step: "05",
+    title: "Run minimum validation",
+    text: "Walk through config-only, one-epoch, full train+test, and a single sweep trial to surface integration issues.",
+    code: "python src/vcbench/modelcore/train.py model=&lt;your_model&gt; trainer.max_epochs=1"
+  }
+];
 let currentZoom = 1;
 let dragState = null;
 let activeTask = null;
@@ -356,6 +416,30 @@ function renderStepCard(step, title, text) {
       <div class="step-number">${step}</div>
       <h4 class="step-title">${title}</h4>
       <p>${text}</p>
+    </article>
+  `;
+}
+
+function renderGuidanceDecision(item) {
+  return `
+    <li class="decision-item">
+      <span class="decision-step">${item.step}</span>
+      <div class="decision-body">
+        <h5 class="decision-title">${item.title}</h5>
+        <p class="decision-text">${item.text}</p>
+      </div>
+    </li>
+  `;
+}
+
+function renderIntegrationStep(item) {
+  const code = item.code ? `<code class="step-code">${item.code}</code>` : "";
+  return `
+    <article class="step-card integration-step">
+      <div class="step-number">${item.step}</div>
+      <h4 class="step-title">${item.title}</h4>
+      <p>${item.text}</p>
+      ${code}
     </article>
   `;
 }
@@ -609,15 +693,44 @@ function renderApp() {
         <section class="section alt">
           <div class="container">
             <div class="section-heading">
-              <div class="section-kicker">Model Selection</div>
-              <h3 class="section-title">Selection guidance across models</h3>
+              <div class="section-kicker">Selection &amp; Integration</div>
+              <h3 class="section-title">Selection &amp; Integration Guidance</h3>
               <p class="section-copy">
-                The guidance figure maps benchmark setting and compute constraints
-                to a smaller set of model choices.
+                Use the workflow on the left to narrow model choices for a given task and compute budget.
+                The steps below show how to plug a new model into the benchmark pipeline.
               </p>
             </div>
-            <div class="extras-grid">
-              ${GUIDANCE_SECTION ? renderTaskCard(GUIDANCE_SECTION) : ""}
+
+            <div class="guidance-board">
+              <div class="guidance-figure-slot">
+                ${GUIDANCE_SECTION ? renderTaskCard(GUIDANCE_SECTION) : ""}
+              </div>
+              <aside class="guidance-decisions">
+                <div class="label">Step-by-step selection</div>
+                <ol class="decision-list">
+                  ${GUIDANCE_DECISIONS.map(renderGuidanceDecision).join("")}
+                </ol>
+              </aside>
+            </div>
+
+            <div class="integration-block">
+              <div class="integration-head">
+                <div class="integration-intro">
+                  <div class="section-kicker">How to Integrate</div>
+                  <h4 class="integration-title">Plug a new model into VCBench</h4>
+                  <p class="integration-copy">
+                    VCBench builds on a Hydra-based training entry. A new model needs a class,
+                    a config, a registration line, and a quick validation pass before full benchmarking.
+                  </p>
+                </div>
+                <div class="integration-actions">
+                  <a class="pill pill-link" href="${INTEGRATION_GUIDE_URL}" target="_blank" rel="noopener noreferrer">Integration guide</a>
+                  <a class="pill pill-link" href="${INTEGRATION_REPO_URL}" target="_blank" rel="noopener noreferrer">Source repository</a>
+                </div>
+              </div>
+              <div class="steps integration-steps">
+                ${INTEGRATION_STEPS.map(renderIntegrationStep).join("")}
+              </div>
             </div>
           </div>
         </section>
