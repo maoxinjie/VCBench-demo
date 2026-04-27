@@ -89,64 +89,73 @@ const EXTRA_SECTIONS = [
   }
 ];
 
+const DATASETS_DRIVE_URL =
+  "https://drive.google.com/drive/folders/1GrPW9x5_npnT7ILwDVsFWvfDIcqaSjdk?usp=sharing";
+
 const DATASETS = [
-  "McFarland2020",
-  "Kang2018_CD4Tcells",
-  "AdamsonWeissman2016_10X001",
-  "AdamsonWeissman2016_10X010",
-  "Norman2019",
-  "ReplogleWeissman2022_K562",
-  "SrivatsanTrapnell2020_sciplex3"
+  { name: "McFarland2020", url: DATASETS_DRIVE_URL },
+  { name: "Kang2018_CD4Tcells", url: DATASETS_DRIVE_URL },
+  { name: "AdamsonWeissman2016_10X001", url: DATASETS_DRIVE_URL },
+  { name: "AdamsonWeissman2016_10X010", url: DATASETS_DRIVE_URL },
+  { name: "Norman2019", url: DATASETS_DRIVE_URL },
+  { name: "ReplogleWeissman2022_K562", url: DATASETS_DRIVE_URL },
+  { name: "SrivatsanTrapnell2020_sciplex3", url: DATASETS_DRIVE_URL }
 ];
 
 const MODELS = [
-  "Linear Additive",
-  "Latent Additive",
-  "DecoderOnly",
-  "CPA",
-  "BioLORD",
-  "SAMS-VAE",
-  "GEARS",
-  "STATE",
-  "PRNet",
-  "scLAMBDA",
-  "GenePert"
+  { name: "Linear Additive", url: "https://github.com/altoslabs/perturbench" },
+  { name: "Latent Additive", url: "https://github.com/altoslabs/perturbench" },
+  { name: "DecoderOnly", url: "https://github.com/altoslabs/perturbench" },
+  { name: "CPA", url: "https://github.com/theislab/cpa" },
+  { name: "BioLORD", url: "https://github.com/nitzanlab/biolord" },
+  { name: "SAMS-VAE", url: "https://github.com/insitro/sams-vae" },
+  { name: "GEARS", url: "https://github.com/snap-stanford/GEARS" },
+  { name: "STATE", url: "https://github.com/ArcInstitute/state" },
+  { name: "PRnet", url: "https://github.com/Perturbation-Response-Prediction/PRnet" },
+  { name: "scLAMBDA", url: "https://github.com/gefeiwang/scLAMBDA" },
+  { name: "GenePert", url: "https://github.com/zou-group/GenePert" }
 ];
 
 const DATASET_REFERENCES = [
   {
     label: "AdamsonWeissman2016_10X001 / AdamsonWeissman2016_10X010",
     ref: "[2]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "Britt Adamson et al. A multiplexed single-cell CRISPR screening platform enables systematic dissection of the unfolded protein response. Cell, 2016."
   },
   {
     label: "SrivatsanTrapnell2020_sciplex3",
     ref: "[4]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "Sanjay R Srivatsan et al. Massively multiplex chemical transcriptomics at single-cell resolution. Science, 2020."
   },
   {
     label: "ReplogleWeissman2022_K562",
     ref: "[11]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "Joseph M Replogle et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. Cell, 2022."
   },
   {
     label: "McFarland2020",
     ref: "[36]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "James M McFarland et al. Multiplexed single-cell transcriptional response profiling to define cancer vulnerabilities and therapeutic mechanism of action. Nature Communications, 2020."
   },
   {
     label: "Kang2018_CD4Tcells",
     ref: "[37]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "Hyun Min Kang et al. Multiplexed droplet single-cell RNA-sequencing using natural genetic variation. Nature Biotechnology, 2018."
   },
   {
     label: "Norman2019",
     ref: "[38]",
+    url: DATASETS_DRIVE_URL,
     citation:
       "Thomas M Norman et al. Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. Science, 2019."
   }
@@ -156,54 +165,63 @@ const MODEL_REFERENCES = [
   {
     label: "Linear Additive / Latent Additive / DecoderOnly",
     ref: "[15]",
+    url: "https://github.com/altoslabs/perturbench",
     citation:
       "Adapted from PerturBench baselines. Y Wu et al. PerturBench: Benchmarking machine learning models for cellular perturbation analysis. arXiv, 2025."
   },
   {
     label: "CPA",
     ref: "[21]",
+    url: "https://github.com/theislab/cpa",
     citation:
       "Mohammad Lotfollahi et al. Predicting cellular responses to complex perturbations in high-throughput screens. Molecular Systems Biology, 2023."
   },
   {
     label: "GEARS",
     ref: "[24]",
+    url: "https://github.com/snap-stanford/GEARS",
     citation:
       "Yusuf Roohani, Kexin Huang, and Jure Leskovec. Predicting transcriptional outcomes of novel multigene perturbations with GEARS. Nature Biotechnology, 2024."
   },
   {
     label: "BioLORD",
     ref: "[54]",
+    url: "https://github.com/nitzanlab/biolord",
     citation:
       "Zoe Piran et al. Disentanglement of single-cell data with BioLORD. Nature Biotechnology, 2024."
   },
   {
     label: "SAMS-VAE",
     ref: "[55]",
+    url: "https://github.com/insitro/sams-vae",
     citation:
       "Michael Bereket and Theofanis Karaletsos. Modelling cellular perturbations with the sparse additive mechanism shift variational autoencoder. NeurIPS, 2024."
   },
   {
-    label: "PRNet",
+    label: "PRnet",
     ref: "[56]",
+    url: "https://github.com/Perturbation-Response-Prediction/PRnet",
     citation:
       "Xiaoning Qi et al. Predicting transcriptional responses to novel chemical perturbations using deep generative model for drug discovery. Nature Communications, 2024."
   },
   {
     label: "scLAMBDA",
     ref: "[57]",
+    url: "https://github.com/gefeiwang/scLAMBDA",
     citation:
       "Gefei Wang et al. Modeling and predicting single-cell multi-gene perturbation responses with scLAMBDA. bioRxiv, 2024."
   },
   {
     label: "GenePert",
     ref: "[58]",
+    url: "https://github.com/zou-group/GenePert",
     citation:
       "Yiqun T Chen and James Zou. GenePert: Leveraging GenePT embeddings for gene perturbation prediction. bioRxiv, 2024."
   },
   {
     label: "STATE",
     ref: "[59]",
+    url: "https://github.com/ArcInstitute/state",
     citation:
       "Abhinav K Adduri et al. Predicting cellular responses to perturbation across diverse contexts with STATE. bioRxiv, 2025."
   }
@@ -243,21 +261,31 @@ function renderTaskCard(task) {
 }
 
 function renderResourceCard(title, items, color) {
+  const renderItem = (item) => {
+    if (item && typeof item === "object" && item.url) {
+      return `<a class="pill pill-link" href="${item.url}" target="_blank" rel="noopener noreferrer">${item.name}</a>`;
+    }
+    const label = item && typeof item === "object" ? item.name : item;
+    return `<span class="pill">${label}</span>`;
+  };
   return `
     <article class="resource-card" style="--resource-color:${color}">
       <div class="label">${title}</div>
       <div class="pill-list">
-        ${items.map((item) => `<span class="pill">${item}</span>`).join("")}
+        ${items.map(renderItem).join("")}
       </div>
     </article>
   `;
 }
 
 function renderReferenceEntry(entry) {
+  const head = entry.url
+    ? `<a class="reference-link" href="${entry.url}" target="_blank" rel="noopener noreferrer"><strong>${entry.label}</strong></a>`
+    : `<strong>${entry.label}</strong>`;
   return `
     <article class="reference-entry">
       <div class="reference-entry-head">
-        <strong>${entry.label}</strong>
+        ${head}
       </div>
       <p class="reference-citation">${entry.citation}</p>
     </article>
