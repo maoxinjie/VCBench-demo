@@ -195,7 +195,7 @@ const MODEL_REFERENCES = [
     ref: "[55]",
     url: "https://openreview.net/forum?id=DzaCE00jGV",
     citation:
-      "Michael Bereket and Theofanis Karaletsos. Modelling cellular perturbations with the sparse additive mechanism shift variational autoencoder. NeurIPS, 2024."
+      "Michael Bereket and Theofanis Karaletsos. Modelling cellular perturbations with the sparse additive mechanism shift variational autoencoder. NeurIPS, 2023."
   },
   {
     label: "PRnet",
