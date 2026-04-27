@@ -235,7 +235,7 @@ const METRIC_FAMILIES = [
     color: "#EFF8F7",
     metrics: [
       { abbr: "PCC", full: "Pearson correlation" },
-      { abbr: "PDCorr", full: "Perturbation-delta correlation", highlight: true },
+      { abbr: "PDCorr", full: "Perturbation-delta correlation" },
       { abbr: "PDRCorr", full: "Perturbation-delta rank correlation" },
       { abbr: "LFCSpear", full: "Spearman of log-fold-change" },
       { abbr: "PCA-LFCSpear", full: "PCA-projected LFC Spearman" },
@@ -249,8 +249,8 @@ const METRIC_FAMILIES = [
     purpose: "Recovery of differentially expressed genes, central to biological interpretation.",
     color: "#F1EDF9",
     metrics: [
-      { abbr: "DEPrec", full: "DEG precision", highlight: true },
-      { abbr: "DERec", full: "DEG recall", highlight: true },
+      { abbr: "DEPrec", full: "DEG precision" },
+      { abbr: "DERec", full: "DEG recall" },
       { abbr: "DEOverlap", full: "DEG overlap" }
     ]
   },
@@ -271,7 +271,7 @@ const METRIC_KEY_FINDINGS = [
   {
     title: "PCC alone is uninformative",
     text:
-      "Most models score similarly high under PCC, and PCC correlates weakly with other metrics in the metric correlation matrix (Fig. 5b)."
+      "Most models score similarly high under PCC, and PCC correlates weakly with other metrics in the correlation matrix below."
   },
   {
     title: "Perturbation-focused metrics are most discriminative",
@@ -281,7 +281,7 @@ const METRIC_KEY_FINDINGS = [
   {
     title: "Compute cost matters as much as accuracy",
     text:
-      "Models differ substantially in GPU memory usage and runtime, with steeper scaling on larger datasets and batch sizes (Fig. 5d)."
+      "Models differ substantially in GPU memory usage and runtime, with steeper scaling on larger datasets and batch sizes (see the scaling curves below)."
   }
 ];
 
@@ -374,7 +374,7 @@ function renderMetricFamily(family) {
         ${family.metrics
           .map(
             (m) => `
-              <li class="metric-item${m.highlight ? " is-highlight" : ""}">
+              <li class="metric-item">
                 <span class="metric-abbr">${m.abbr}</span>
                 <span class="metric-full">${m.full}</span>
               </li>
@@ -575,11 +575,33 @@ function renderApp() {
                 ${METRIC_KEY_FINDINGS.map(renderMetricFinding).join("")}
               </div>
             </div>
-            <div class="metric-figure-cta">
-              <div class="label">Full figure</div>
-              <div class="extras-grid">
-                ${METRICS_SECTION ? renderTaskCard(METRICS_SECTION) : ""}
-              </div>
+            <div class="metric-figure-board">
+              <figure class="metric-figure-card">
+                <img
+                  class="metric-figure-img"
+                  src="./assets/figures/fig5-hires_1.png"
+                  alt="Metric correlation matrix and pairwise scatter plots between metrics"
+                />
+                <figcaption class="metric-figure-caption">
+                  <strong>Metric relationships.</strong>
+                  Pairwise correlations among the 10 evaluation metrics. Correlation-based
+                  and distance-based metrics form two distinct clusters, while PCC sits apart
+                  with weak ties to the rest.
+                </figcaption>
+              </figure>
+              <figure class="metric-figure-card">
+                <img
+                  class="metric-figure-img"
+                  src="./assets/figures/fig5-hires_2.png"
+                  alt="Compute cost: DEOverlap, peak GPU memory, and runtime across models"
+                />
+                <figcaption class="metric-figure-caption">
+                  <strong>Compute cost.</strong>
+                  DEOverlap, peak GPU memory, and runtime as functions of cell number and
+                  batch size. Models differ substantially in scaling behavior, with several
+                  large models showing steep memory and runtime growth.
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>

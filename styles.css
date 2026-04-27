@@ -428,12 +428,6 @@ button {
   line-height: 1.35;
 }
 
-.metric-item.is-highlight {
-  background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(15, 118, 110, 0.45);
-  box-shadow: 0 1px 6px rgba(15, 118, 110, 0.1);
-}
-
 .metric-abbr {
   font-weight: 600;
   color: var(--text);
@@ -481,14 +475,46 @@ button {
   color: var(--muted);
 }
 
-.metric-figure-cta {
-  margin-top: 1.8rem;
+.metric-figure-board {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-.metric-figure-cta .extras-grid {
-  margin-top: 0.85rem;
-  grid-template-columns: minmax(0, 1fr);
-  max-width: 640px;
+.metric-figure-card {
+  margin: 0;
+  padding: 1.2rem 1.2rem 1.1rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 14px rgba(21, 27, 38, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.metric-figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(17, 24, 39, 0.05);
+}
+
+.metric-figure-caption {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  padding: 0 0.15rem;
+}
+
+.metric-figure-caption strong {
+  color: var(--text);
+  font-weight: 600;
+  margin-right: 0.25rem;
 }
 
 .task-card {
