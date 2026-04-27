@@ -359,6 +359,138 @@ button {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.metric-family-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+.metric-family {
+  padding: 1.35rem 1.3rem;
+  border-radius: 22px;
+  background: var(--family-color);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 8px 24px rgba(21, 27, 38, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metric-family-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.metric-family-count {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+  min-width: 2.4rem;
+  font-feature-settings: "tnum" 1;
+}
+
+.metric-family-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.metric-family-purpose {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.metric-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.metric-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 10px;
+  border: 1px solid rgba(17, 24, 39, 0.05);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.metric-item.is-highlight {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(15, 118, 110, 0.45);
+  box-shadow: 0 1px 6px rgba(15, 118, 110, 0.1);
+}
+
+.metric-abbr {
+  font-weight: 600;
+  color: var(--text);
+  font-feature-settings: "tnum" 1;
+  min-width: 6.4rem;
+  flex-shrink: 0;
+}
+
+.metric-full {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.metric-findings {
+  margin-top: 1.8rem;
+}
+
+.metric-findings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.metric-finding {
+  padding: 1.05rem 1.15rem;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 14px rgba(21, 27, 38, 0.03);
+}
+
+.metric-finding-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.metric-finding p {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.metric-figure-cta {
+  margin-top: 1.8rem;
+}
+
+.metric-figure-cta .extras-grid {
+  margin-top: 0.85rem;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 640px;
+}
+
 .task-card {
   position: relative;
   overflow: hidden;
@@ -785,7 +917,9 @@ button {
   .tasks-grid,
   .steps,
   .resource-panels,
-  .reference-grid {
+  .reference-grid,
+  .metric-family-grid,
+  .metric-findings-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -817,8 +951,14 @@ button {
   .resource-panels,
   .steps,
   .metrics-strip,
-  .reference-grid {
+  .reference-grid,
+  .metric-family-grid,
+  .metric-findings-grid {
     grid-template-columns: 1fr;
+  }
+
+  .metric-abbr {
+    min-width: 5.6rem;
   }
 
   .hero h2,

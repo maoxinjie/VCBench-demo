@@ -227,6 +227,64 @@ const MODEL_REFERENCES = [
   }
 ];
 
+const METRIC_FAMILIES = [
+  {
+    name: "Correlation-based",
+    count: 7,
+    purpose: "Gene-level agreement and directional consistency between predicted and observed responses.",
+    color: "#EFF8F7",
+    metrics: [
+      { abbr: "PCC", full: "Pearson correlation" },
+      { abbr: "PDCorr", full: "Perturbation-delta correlation", highlight: true },
+      { abbr: "PDRCorr", full: "Perturbation-delta rank correlation" },
+      { abbr: "LFCSpear", full: "Spearman of log-fold-change" },
+      { abbr: "PCA-LFCSpear", full: "PCA-projected LFC Spearman" },
+      { abbr: "LogFC", full: "Log-fold-change correlation" },
+      { abbr: "RLogFC", full: "Rank LFC correlation" }
+    ]
+  },
+  {
+    name: "DEG-related",
+    count: 3,
+    purpose: "Recovery of differentially expressed genes, central to biological interpretation.",
+    color: "#F1EDF9",
+    metrics: [
+      { abbr: "DEPrec", full: "DEG precision", highlight: true },
+      { abbr: "DERec", full: "DEG recall", highlight: true },
+      { abbr: "DEOverlap", full: "DEG overlap" }
+    ]
+  },
+  {
+    name: "Distribution-level",
+    count: 3,
+    purpose: "Whether the predicted single-cell population matches the observed distribution.",
+    color: "#EEF5FB",
+    metrics: [
+      { abbr: "RMSE", full: "Root mean squared error" },
+      { abbr: "Sinkhorn", full: "Sinkhorn divergence" },
+      { abbr: "Energy", full: "Energy distance" }
+    ]
+  }
+];
+
+const METRIC_KEY_FINDINGS = [
+  {
+    title: "PCC alone is uninformative",
+    text:
+      "Most models score similarly high under PCC, and PCC correlates weakly with other metrics in the metric correlation matrix (Fig. 5b)."
+  },
+  {
+    title: "Perturbation-focused metrics are most discriminative",
+    text:
+      "PDCorr and DEG-related scores show the largest variation across models, separating model behavior much more clearly than global similarity."
+  },
+  {
+    title: "Compute cost matters as much as accuracy",
+    text:
+      "Models differ substantially in GPU memory usage and runtime, with steeper scaling on larger datasets and batch sizes (Fig. 5d)."
+  }
+];
+
 const ALL_SECTIONS = [...TASKS, ...EXTRA_SECTIONS];
 const METRICS_SECTION = EXTRA_SECTIONS.find((section) => section.id === "metrics");
 const GUIDANCE_SECTION = EXTRA_SECTIONS.find((section) => section.id === "guidance");
@@ -298,6 +356,41 @@ function renderStepCard(step, title, text) {
       <div class="step-number">${step}</div>
       <h4 class="step-title">${title}</h4>
       <p>${text}</p>
+    </article>
+  `;
+}
+
+function renderMetricFamily(family) {
+  return `
+    <article class="metric-family" style="--family-color:${family.color}">
+      <header class="metric-family-head">
+        <div class="metric-family-count">${family.count}</div>
+        <div>
+          <h4 class="metric-family-name">${family.name}</h4>
+          <p class="metric-family-purpose">${family.purpose}</p>
+        </div>
+      </header>
+      <ul class="metric-list">
+        ${family.metrics
+          .map(
+            (m) => `
+              <li class="metric-item${m.highlight ? " is-highlight" : ""}">
+                <span class="metric-abbr">${m.abbr}</span>
+                <span class="metric-full">${m.full}</span>
+              </li>
+            `
+          )
+          .join("")}
+      </ul>
+    </article>
+  `;
+}
+
+function renderMetricFinding(item) {
+  return `
+    <article class="metric-finding">
+      <h4 class="metric-finding-title">${item.title}</h4>
+      <p>${item.text}</p>
     </article>
   `;
 }
@@ -468,12 +561,25 @@ function renderApp() {
               <div class="section-kicker">Metric View</div>
               <h3 class="section-title">Metric-dependent evaluation</h3>
               <p class="section-copy">
-                Model rankings shift across correlation, DEG recovery,
-                distribution-level metrics, and compute cost.
+                We report 12 metrics across 3 complementary families.
+                Each family captures a different biological aspect of perturbation
+                response, and model rankings shift accordingly.
               </p>
             </div>
-            <div class="extras-grid">
-              ${METRICS_SECTION ? renderTaskCard(METRICS_SECTION) : ""}
+            <div class="metric-family-grid">
+              ${METRIC_FAMILIES.map(renderMetricFamily).join("")}
+            </div>
+            <div class="metric-findings">
+              <div class="label">Key findings</div>
+              <div class="metric-findings-grid">
+                ${METRIC_KEY_FINDINGS.map(renderMetricFinding).join("")}
+              </div>
+            </div>
+            <div class="metric-figure-cta">
+              <div class="label">Full figure</div>
+              <div class="extras-grid">
+                ${METRICS_SECTION ? renderTaskCard(METRICS_SECTION) : ""}
+              </div>
             </div>
           </div>
         </section>
