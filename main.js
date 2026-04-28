@@ -321,13 +321,13 @@ const INTEGRATION_STEPS = [
     step: "01",
     title: "Implement the model class",
     text: "Create a class that inherits PerturbationModel and implements forward, training_step, validation_step, and predict.",
-    code: "src/vcbench/modelcore/models/&lt;your_model&gt;.py"
+    code: "src/VCBench/modelcore/models/&lt;your_model&gt;.py"
   },
   {
     step: "02",
     title: "Add a Hydra config",
     text: "Write a YAML config whose _target_ points to your class and whose parameters align with __init__.",
-    code: "src/vcbench/configs/model/&lt;your_model&gt;.yaml"
+    code: "src/VCBench/configs/model/&lt;your_model&gt;.yaml"
   },
   {
     step: "03",
@@ -345,7 +345,7 @@ const INTEGRATION_STEPS = [
     step: "05",
     title: "Run minimum validation",
     text: "Walk through config-only, one-epoch, full train+test, and a single sweep trial to surface integration issues.",
-    code: "python src/vcbench/modelcore/train.py model=&lt;your_model&gt; trainer.max_epochs=1"
+    code: "python src/VCBench/modelcore/train.py model=&lt;your_model&gt; trainer.max_epochs=1"
   }
 ];
 let currentZoom = 1;
