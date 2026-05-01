@@ -569,7 +569,7 @@ function renderApp() {
               <div class="hero-actions">
                 <a class="button primary" href="#resources">Datasets and models</a>
                 <a class="button secondary" href="#tasks">View tasks</a>
-                <a class="button secondary" href="https://github.com/maoxinjie/VCBench" target="_blank" rel="noopener noreferrer">View code</a>
+                <a class="button secondary" href="https://doi.org/10.48550/arXiv.2604.27646" target="_blank" rel="noreferrer">arXiv</a>
               </div>
               <div class="metrics-strip">
                 ${renderStatCard("Scenarios", "Unseen cells, unseen perturbations, and cross-dataset integration.", "#F3FBFA")}
