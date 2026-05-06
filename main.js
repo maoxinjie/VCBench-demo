@@ -645,7 +645,7 @@ function renderApp() {
               <div class="section-kicker">Metric View</div>
               <h3 class="section-title">Metric-dependent evaluation</h3>
               <p class="section-copy">
-                We report 12 metrics across 3 complementary families.
+                We report 13 metrics across 3 complementary families.
                 Each family captures a different biological aspect of perturbation
                 response, and model rankings shift accordingly.
               </p>
