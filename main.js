@@ -561,7 +561,7 @@ function renderApp() {
           <div class="container">
             <div class="hero-copy-wrap">
               <div class="eyebrow">Benchmark Overview</div>
-              <h2>Benchmarking virtual cell models across generalization settings</h2>
+              <h2>Benchmarking virtual cell models for in-the-wild perturbation response</h2>
               <p class="hero-copy">
                 VCBench evaluates virtual cell models on unseen cellular contexts, unseen perturbations,
                 and cross-dataset integration, alongside metric-specific performance and compute cost.
