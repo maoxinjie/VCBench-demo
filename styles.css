@@ -1138,3 +1138,98 @@ button {
     min-height: 62vh;
   }
 }
+
+/* Keep the complete manuscript figures visible in their preview cards. */
+.task-thumb {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #fff;
+}
+.figure-number {
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.overview-figure-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.overview-figure-button .overview-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rank-table-wrap {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 1.1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.rank-table {
+  width: 100%;
+  min-width: 345px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+.rank-table caption {
+  padding: 0 0 0.8rem;
+  text-align: left;
+  font-weight: 700;
+}
+.rank-table td,
+.rank-table th {
+  padding: 0.49rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+}
+.rank-table th:first-child {
+  text-align: left;
+}
+.rank-table thead {
+  background: #eef5f4;
+}
+.rank-table tbody th {
+  font-weight: 500;
+}
+.rank-table td strong {
+  color: #14514d;
+}
+.rank-note,
+.rank-download {
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.rank-note {
+  color: #475569;
+}
+.rank-download {
+  color: #14514d;
+  text-decoration: underline;
+}
+
+.modal-toolbar {
+  flex-wrap: wrap;
+}
+@media (max-width: 1080px) {
+  .modal-card {
+    overflow: auto;
+  }
+  .modal-grid {
+    max-height: none;
+  }
+  .modal-canvas {
+    max-height: 55vh;
+  }
+}

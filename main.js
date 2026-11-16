@@ -1,93 +1,98 @@
-const TASKS = [
+const [FRAMEWORK_SECTION, ...FIGURE_SECTIONS] = [
   {
-    id: "unseen-cell",
-    title: "Unseen Cell",
-    short: "Generalization to unseen cell lines or patients under random and scFM-based splits.",
-    figure: "./assets/figures/fig2-hires.png",
-    preview: "./assets/figures/fig2.png",
-    figureLabel: "Figure 2",
-    color: "#EFF8F7",
-    highlights: [
-      "scFM-based splits define a harder OOD setting.",
-      "Linear Additive, BioLORD, and scLAMBDA remain relatively stable under cell-context shift.",
-      "Cell embeddings help selectively rather than uniformly across models."
+    "id": "framework",
+    "title": "Benchmark overview",
+    "short": "A shared workflow for comparing out-of-distribution prediction.",
+    "color": "#EFF8F7",
+    "description": "Holding out a cell line, perturbation or study reserves its responses for testing. Similar examples can still remain in training. VCBench measures that support and evaluates which parts of the response models recover.",
+    "highlights": [
+      "Nine models, including three baselines, are compared on nine data packages from seven studies.",
+      "The holdout protocol specifies which target information the model can use.",
+      "Gene recovery, response direction, magnitude and correlation provide complementary evidence."
     ],
-    description:
-      "This task measures transfer to unseen cellular contexts. Random splits can overestimate robustness because closely related cell states still appear on both sides of the split.",
-    mediaType: "image"
+    "figure": "./assets/figures/fig1-hires.png",
+    "preview": "./assets/figures/fig1.png",
+    "figureLabel": "Figure 1"
   },
   {
-    id: "unseen-perturbation",
-    title: "Unseen Perturbations",
-    short: "Prediction of genetic and chemical perturbations not observed during training.",
-    figure: "./assets/figures/fig3-hires.png",
-    preview: "./assets/figures/fig3.png",
-    figureLabel: "Figure 3",
-    color: "#EEF5FB",
-    highlights: [
-      "Performance declines as perturbation shift increases.",
-      "Global reconstruction does not necessarily imply good DEG recovery.",
-      "Several models capture broad trends but still miss perturbation-specific signals."
+    "id": "unseen-cell",
+    "title": "Unseen cell lines and donors",
+    "short": "Guided holdouts exposed losses in DE gene recovery that overall correlation partly concealed.",
+    "color": "#EFF8F7",
+    "description": "McFarland holds out cell lines and Kang holds out donors. Random splits and splits guided by control-cell representations use matched partition sizes. Target controls are available; target perturbation responses are held out.",
+    "highlights": [
+      "McFarland guided test lines were farther from training in all three measured embedding spaces: STACK, scGPT and UCE.",
+      "On McFarland STACK, top-50 DE overlap fell about 19% from Random while response correlation fell about 5%. Kang showed a similar contrast.",
+      "The guided and Random splits use different test identities, so the comparison does not isolate the effect of distance."
     ],
-    description:
-      "This task evaluates extrapolation to unseen perturbations in both single and combinational settings. Global expression similarity alone does not capture perturbation-specific recovery.",
-    mediaType: "image"
+    "figure": "./assets/figures/fig2-hires.png",
+    "preview": "./assets/figures/fig2.png",
+    "figureLabel": "Figure 2"
   },
   {
-    id: "cross-dataset",
-    title: "Cross-Dataset",
-    short: "Benchmarking merging, scaling, and alignment across compatible or heterogeneous studies.",
-    figure: "./assets/figures/fig4-hires.png",
-    preview: "./assets/figures/fig4.png",
-    figureLabel: "Figure 4",
-    color: "#F6F1FA",
-    highlights: [
-      "Naive aggregation can degrade performance rather than improve it.",
-      "Count scaling helps reduce global count-level shifts.",
-      "Merge-after and merge-before favor different metric behaviors."
+    "id": "unseen-perturbation",
+    "title": "Unseen genetic and chemical perturbations",
+    "short": "Held-out genes and compounds reveal distinct errors in gene recovery, direction and response magnitude.",
+    "color": "#EEF5FB",
+    "description": "Norman tests held-out single genes and gene pairs. ESM2 guides the single-gene split, and seen 0, 1 and 2 count the genes in a pair that appeared in training. SciPlex3 compares Random, Scaffold, Tanimoto, UniMol and Combined compound holdouts.",
+    "highlights": [
+      "In the ESM2-guided single-gene split, response MSE fell about 10% while PDCorr and top-50 DE overlap also fell.",
+      "Gene pairs with both components seen in training had higher mean response correlation than pairs with neither seen.",
+      "Combined separates compounds by both molecular representations and shares no training/test scaffolds. In this test, CPA and Latent Additive had about 81% direction accuracy and mean magnitude ratios below 0.30."
     ],
-    description:
-      "This task asks when larger merged datasets help. Gains depend on distribution alignment, feature-space design, and dataset compatibility, not scale alone.",
-    mediaType: "image"
+    "figure": "./assets/figures/fig3-hires.png",
+    "preview": "./assets/figures/fig3.png",
+    "figureLabel": "Figure 3"
+  },
+  {
+    "id": "cross-dataset",
+    "title": "Transfer across studies",
+    "short": "On fixed K562 targets, alignment and source choice affected transfer; additional cells did not consistently improve it.",
+    "color": "#F6F1FA",
+    "description": "Five K562 packages differ in measured genes, perturbation coverage and response distributions. With each target test set fixed, VCBench compares integration, the order of highly variable gene (HVG) selection, added studies and the number of retained source cells.",
+    "highlights": [
+      "Anchor, MNN and scVI improved mean direction and fold-change ranking and reduced response MSE on Replogle relative to direct concatenation.",
+      "Adding A10 improved all six plotted metrics on Replogle on average; adding A01 worsened direction agreement and response MSE.",
+      "Changes in perturbation and response similarity were associated with gains in a separate retrospective analysis. Source choices for new targets should be evaluated on validation data."
+    ],
+    "figure": "./assets/figures/fig4-hires.png",
+    "preview": "./assets/figures/fig4.png",
+    "figureLabel": "Figure 4"
+  },
+  {
+    "id": "metrics",
+    "title": "Metrics and training objectives",
+    "short": "Model ranks differ by task, and changing the training loss can improve one response property while worsening another.",
+    "color": "#EDF8F8",
+    "description": "Figure 5 compares within-experiment metric correlations, mean ranks across six shared metrics, and five MSE:MMD loss ratios for PRNet on a fixed SciPlex3 A549 Random split.",
+    "highlights": [
+      "Metrics can agree on model ordering without measuring the same property. DE recall and ROC-AUC showed negative median rank correlation.",
+      "The best mean rank was BioLORD for cell lines, Linear Additive for donors, and Latent Additive for genetic and chemical perturbations.",
+      "In the fixed PRNet comparison, pure MMD improved direction and fold-change ordering relative to pure MSE but reduced top-50 DE overlap, PDCorr and PR-AUC, and increased response MSE."
+    ],
+    "figure": "./assets/figures/fig5-hires.png",
+    "preview": "./assets/figures/fig5.png",
+    "figureLabel": "Figure 5"
+  },
+  {
+    "id": "guidance",
+    "title": "Computational evaluation workflow",
+    "short": "Define the prediction target, compare choices on validation data and report a held-out OOD evaluation.",
+    "color": "#F1EDF9",
+    "description": "The workflow turns the benchmark findings into an evaluation procedure for new computational prediction tasks.",
+    "highlights": [
+      "Define what is held out and what controls and related examples are available.",
+      "Compare data preparation, sources and model settings on validation using matched budgets.",
+      "Report complementary metrics on the held-out OOD test and document the configuration."
+    ],
+    "figure": "./assets/figures/fig6-hires.png",
+    "preview": "./assets/figures/fig6.png",
+    "figureLabel": "Figure 6"
   }
 ];
-
-const EXTRA_SECTIONS = [
-  {
-    id: "metrics",
-    title: "Metric View",
-    short: "Metric-dependent evaluation and compute trade-offs.",
-    figure: "./assets/figures/fig5-hires.png",
-    preview: "./assets/figures/fig5.png",
-    figureLabel: "Figure 5",
-    color: "#EDF8F8",
-    highlights: [
-      "Different metrics emphasize different biological aspects.",
-      "PCC alone is not sufficient for perturbation benchmarking.",
-      "Performance and compute efficiency should be considered together."
-    ],
-    description:
-      "Model ranking depends on the metric. Correlation, DEG recovery, distribution-level metrics, runtime, and GPU memory capture different aspects of perturbation prediction.",
-    mediaType: "image"
-  },
-  {
-    id: "guidance",
-    title: "Model Selection Guidance",
-    short: "Choosing models across tasks and compute constraints.",
-    figure: "./assets/figures/fig6.png",
-    preview: "./assets/figures/fig6.png",
-    figureLabel: "Figure 6",
-    color: "#F1EDF9",
-    highlights: [
-      "Use task type to narrow model choices first.",
-      "Consider compute limits together with predictive behavior.",
-      "Return to metric-based evaluation before final downstream use."
-    ],
-    description:
-      "The guidance figure links benchmark setting, evaluation target, and compute budget to a narrower set of model choices.",
-    mediaType: "image"
-  }
-];
+const TASKS = FIGURE_SECTIONS.slice(0, 3);
+const [METRICS_SECTION, GUIDANCE_SECTION] = FIGURE_SECTIONS.slice(3);
+const ALL_SECTIONS = [FRAMEWORK_SECTION, ...FIGURE_SECTIONS];
 
 const DATASETS_DRIVE_URL =
   "https://drive.google.com/drive/folders/1GrPW9x5_npnT7ILwDVsFWvfDIcqaSjdk?usp=sharing";
@@ -98,6 +103,8 @@ const DATASETS = [
   { name: "AdamsonWeissman2016_10X001", url: DATASETS_DRIVE_URL },
   { name: "AdamsonWeissman2016_10X010", url: DATASETS_DRIVE_URL },
   { name: "Norman2019", url: DATASETS_DRIVE_URL },
+  { name: "Dixit 7-day (D7)" },
+  { name: "Dixit 13-day (D13)" },
   { name: "ReplogleWeissman2022_K562", url: DATASETS_DRIVE_URL },
   { name: "SrivatsanTrapnell2020_sciplex3", url: DATASETS_DRIVE_URL }
 ];
@@ -105,18 +112,21 @@ const DATASETS = [
 const MODELS = [
   { name: "Linear Additive", url: "https://github.com/altoslabs/perturbench" },
   { name: "Latent Additive", url: "https://github.com/altoslabs/perturbench" },
-  { name: "DecoderOnly", url: "https://github.com/altoslabs/perturbench" },
+  { name: "Decoder Only", url: "https://github.com/altoslabs/perturbench" },
   { name: "CPA", url: "https://github.com/theislab/cpa" },
   { name: "BioLORD", url: "https://github.com/nitzanlab/biolord" },
   { name: "SAMS-VAE", url: "https://github.com/insitro/sams-vae" },
-  { name: "GEARS", url: "https://github.com/snap-stanford/GEARS" },
-  { name: "STATE", url: "https://github.com/ArcInstitute/state" },
-  { name: "PRnet", url: "https://github.com/Perturbation-Response-Prediction/PRnet" },
+  { name: "PRNet", url: "https://github.com/Perturbation-Response-Prediction/PRnet" },
   { name: "scLAMBDA", url: "https://github.com/gefeiwang/scLAMBDA" },
   { name: "GenePert", url: "https://github.com/zou-group/GenePert" }
 ];
 
 const DATASET_REFERENCES = [
+  {
+    label: "Dixit 7-day (D7) / Dixit 13-day (D13)",
+    url: "https://doi.org/10.1016/j.cell.2016.11.038",
+    citation: "Atray Dixit et al. Perturb-Seq: dissecting molecular circuits with scalable single-cell RNA profiling of pooled genetic screens. Cell, 2016."
+  },
   {
     label: "AdamsonWeissman2016_10X001 / AdamsonWeissman2016_10X010",
     ref: "[2]",
@@ -163,7 +173,7 @@ const DATASET_REFERENCES = [
 
 const MODEL_REFERENCES = [
   {
-    label: "Linear Additive / Latent Additive / DecoderOnly",
+    label: "Linear Additive / Latent Additive / Decoder Only",
     ref: "[15]",
     url: "https://arxiv.org/abs/2408.10609",
     citation:
@@ -175,13 +185,6 @@ const MODEL_REFERENCES = [
     url: "https://www.embopress.org/doi/full/10.15252/msb.202211517",
     citation:
       "Mohammad Lotfollahi et al. Predicting cellular responses to complex perturbations in high-throughput screens. Molecular Systems Biology, 2023."
-  },
-  {
-    label: "GEARS",
-    ref: "[24]",
-    url: "https://www.nature.com/articles/s41587-023-01905-6",
-    citation:
-      "Yusuf Roohani, Kexin Huang, and Jure Leskovec. Predicting transcriptional outcomes of novel multigene perturbations with GEARS. Nature Biotechnology, 2024."
   },
   {
     label: "BioLORD",
@@ -198,7 +201,7 @@ const MODEL_REFERENCES = [
       "Michael Bereket and Theofanis Karaletsos. Modelling cellular perturbations with the sparse additive mechanism shift variational autoencoder. NeurIPS, 2023."
   },
   {
-    label: "PRnet",
+    label: "PRNet",
     ref: "[56]",
     url: "https://www.nature.com/articles/s41467-024-53457-1",
     citation:
@@ -218,102 +221,81 @@ const MODEL_REFERENCES = [
     citation:
       "Yiqun T Chen and James Zou. GenePert: Leveraging GenePT embeddings for gene perturbation prediction. bioRxiv, 2024."
   },
-  {
-    label: "STATE",
-    ref: "[59]",
-    url: "https://www.biorxiv.org/content/10.1101/2025.06.26.661135v2",
-    citation:
-      "Abhinav K Adduri et al. Predicting cellular responses to perturbation across diverse contexts with STATE. bioRxiv, 2025."
-  }
 ];
 
 const METRIC_FAMILIES = [
   {
-    name: "Correlation-based",
-    count: 7,
-    purpose: "Gene-level agreement and directional consistency between predicted and observed responses.",
-    color: "#EFF8F7",
-    metrics: [
-      { abbr: "PCC", full: "Pearson correlation" },
-      { abbr: "PDCorr", full: "Perturbation-delta correlation" },
-      { abbr: "PDRCorr", full: "Perturbation-delta rank correlation" },
-      { abbr: "LFCSpear", full: "Spearman of log-fold-change" },
-      { abbr: "PCA-LFCSpear", full: "PCA-projected LFC Spearman" },
-      { abbr: "LogFC", full: "Log-fold-change correlation" },
-      { abbr: "RLogFC", full: "Rank LFC correlation" }
+    "name": "DE gene recovery and agreement",
+    "color": "#F1EDF9",
+    "purpose": "Recover affected genes and compare responses on observed significant DE genes.",
+    "metrics": [
+      {
+        "abbr": "DE ov@50 / @200",
+        "full": "Top differential-expression gene overlap"
+      },
+      {
+        "abbr": "DE dir.",
+        "full": "Direction agreement"
+      },
+      {
+        "abbr": "DE-LFC rank",
+        "full": "Fold-change rank agreement"
+      }
     ]
   },
   {
-    name: "DEG-related",
-    count: 3,
-    purpose: "Recovery of differentially expressed genes, central to biological interpretation.",
-    color: "#F1EDF9",
-    metrics: [
-      { abbr: "DEPrec", full: "DEG precision" },
-      { abbr: "DERec", full: "DEG recall" },
-      { abbr: "DEOverlap", full: "DEG overlap" }
+    "name": "Overall response fidelity",
+    "color": "#EFF8F7",
+    "purpose": "Compare predicted and observed changes from matched controls.",
+    "metrics": [
+      {
+        "abbr": "PDCorr",
+        "full": "Pearson correlation between response vectors"
+      },
+      {
+        "abbr": "Response MSE",
+        "full": "Mean squared error between response vectors"
+      }
     ]
   },
   {
-    name: "Distribution-level",
-    count: 3,
-    purpose: "Whether the predicted single-cell population matches the observed distribution.",
-    color: "#EEF5FB",
-    metrics: [
-      { abbr: "RMSE", full: "Root mean squared error" },
-      { abbr: "Sinkhorn", full: "Sinkhorn divergence" },
-      { abbr: "Energy", full: "Energy distance" }
+    "name": "Additional readouts",
+    "color": "#EEF5FB",
+    "purpose": "The full evaluation also covers identification, expression and population properties.",
+    "metrics": [
+      {
+        "abbr": "Pert. cos",
+        "full": "Rank of the correct observed response among candidates"
+      },
+      {
+        "abbr": "Population metrics",
+        "full": "Complementary measures such as energy distance"
+      }
     ]
   }
 ];
 
-const METRIC_KEY_FINDINGS = [
-  {
-    title: "PCC alone is uninformative",
-    text:
-      "Most models score similarly high under PCC, and PCC correlates weakly with other metrics in the correlation matrix below."
-  },
-  {
-    title: "Perturbation-focused metrics are most discriminative",
-    text:
-      "PDCorr and DEG-related scores show the largest variation across models, separating model behavior much more clearly than global similarity."
-  },
-  {
-    title: "Compute cost matters as much as accuracy",
-    text:
-      "Models differ substantially in GPU memory usage and runtime, with steeper scaling on larger datasets and batch sizes (see the scaling curves below)."
-  }
+const TASK_RANKS = [
+  ["Decoder Only", 6.444444444444444, 4.0, 3.5416666666666665, 4.958333333333333],
+  ["GenePert", 5.333333333333333, 7.25, 5.375, 6.583333333333334],
+  ["Linear Additive", 3.944444444444444, 2.5, 5.458333333333333, 7.541666666666666],
+  ["Latent Additive", 6.055555555555556, 5.333333333333333, 3.2916666666666665, 1.75],
+  ["CPA", 2.9444444444444446, 3.8333333333333335, 4.666666666666666, 4.125],
+  ["BioLORD", 2.777777777777778, 5.0, 5.125, 3.6666666666666665],
+  ["PRNet", 5.055555555555555, 6.416666666666667, 6.208333333333333, 4.291666666666667],
+  ["scLAMBDA", 4.0, 5.166666666666667, 5.25, 4.041666666666667],
+  ["SAMS-VAE", 8.444444444444445, 5.5, 6.083333333333334, 8.041666666666668]
 ];
-
-const ALL_SECTIONS = [...TASKS, ...EXTRA_SECTIONS];
-const METRICS_SECTION = EXTRA_SECTIONS.find((section) => section.id === "metrics");
-const GUIDANCE_SECTION = EXTRA_SECTIONS.find((section) => section.id === "guidance");
 
 const INTEGRATION_REPO_URL = "https://github.com/maoxinjie/VCBench";
 const INTEGRATION_GUIDE_URL =
   "https://github.com/maoxinjie/VCBench/blob/main/NEW_MODEL_INTEGRATION.md";
 
 const GUIDANCE_DECISIONS = [
-  {
-    step: "Stage 1",
-    title: "Define the task setting",
-    text: "Choose between unseen cells, unseen perturbations, and cross-dataset integration based on the question you want to answer."
-  },
-  {
-    step: "Stage 2",
-    title: "Match a model family",
-    text: "Use the figure to map task setting and evaluation target to a smaller set of candidate models."
-  },
-  {
-    step: "Stage 3",
-    title: "Check compute budget",
-    text: "Compare runtime and GPU memory before training, especially on larger datasets and batch sizes."
-  },
-  {
-    step: "Stage 4",
-    title: "Re-evaluate with multiple metrics",
-    text: "Avoid relying on a single score. Combine correlation, DEG, and distribution-level metrics before final selection."
-  }
+  { step: "Stage 1", title: "Define the prediction task", text: "Specify the held-out unit and the target information available to the predictor." },
+  { step: "Stage 2", title: "Audit training support", text: "Harmonize genes and controls, select highly variable genes from training only, and examine how the test conditions relate to training." },
+  { step: "Stage 3", title: "Compare choices on validation", text: "Compare preprocessing, source sets and model settings at matched training budgets." },
+  { step: "Stage 4", title: "Evaluate and report", text: "Measure complementary response properties on the held-out OOD test and report the protocol and results." }
 ];
 
 const INTEGRATION_STEPS = [
@@ -350,7 +332,7 @@ const INTEGRATION_STEPS = [
 ];
 let currentZoom = 1;
 let dragState = null;
-let activeTask = null;
+let activeTrigger = null;
 
 function renderStatCard(label, value, color) {
   return `
@@ -362,12 +344,13 @@ function renderStatCard(label, value, color) {
 }
 
 function renderTaskCard(task) {
-  const thumb = `<img class="task-thumb" src="${task.preview}" alt="${task.title} preview" />`;
+  const thumb = `<img class="task-thumb" loading="lazy" decoding="async" src="${task.preview}" alt="${task.title} preview" />`;
 
   return `
     <button class="task-card" style="--task-color:${task.color}" data-open-task="${task.id}" type="button">
       <div class="task-card-head">
         <div>
+          <div class="figure-number">${task.figureLabel}</div>
           <h4 class="task-title">${task.title}</h4>
         </div>
         <span class="open-pill">View</span>
@@ -448,7 +431,7 @@ function renderMetricFamily(family) {
   return `
     <article class="metric-family" style="--family-color:${family.color}">
       <header class="metric-family-head">
-        <div class="metric-family-count">${family.count}</div>
+
         <div>
           <h4 class="metric-family-name">${family.name}</h4>
           <p class="metric-family-purpose">${family.purpose}</p>
@@ -470,18 +453,28 @@ function renderMetricFamily(family) {
   `;
 }
 
-function renderMetricFinding(item) {
+function renderTaskRanks() {
+  const minima = [1, 2, 3, 4].map((i) => Math.min(...TASK_RANKS.map((row) => row[i])));
   return `
-    <article class="metric-finding">
-      <h4 class="metric-finding-title">${item.title}</h4>
-      <p>${item.text}</p>
-    </article>
+    <div class="rank-table-wrap">
+      <table class="rank-table">
+        <caption>Mean rank by OOD task · 1 is best</caption>
+        <thead>
+          <tr><th scope="col">Model</th><th scope="col">Cell line</th><th scope="col">Donor</th><th scope="col">Genetic</th><th scope="col">Chemical</th></tr>
+        </thead>
+        <tbody>
+          ${TASK_RANKS.map(([model, ...values]) => `<tr><th scope="row">${model}</th>${values.map((value, i) => `<td>${value === minima[i] ? `<strong>${value.toFixed(2)}</strong>` : value.toFixed(2)}</td>`).join("")}</tr>`).join("")}
+        </tbody>
+      </table>
+      <p class="rank-note">For each OOD setting, six core scores are averaged over three seeds before ranking nine models. Metric ranks and settings receive equal weight within each task. Random is excluded; MSE is ranked from low to high. Bold marks the lowest observed mean rank, without a significance claim.</p>
+      <a class="rank-download" href="./assets/results/core-mean-ranks.csv" download>Download rank data (CSV)</a>
+    </div>
   `;
 }
 
 function renderModal(task) {
   const viewer = `
-        <img class="modal-image zoomable" id="zoomable-figure" src="${task.figure}" alt="${task.title}" />
+        <img class="modal-image zoomable" id="zoomable-figure" draggable="false" src="${task.figure}" alt="${task.title}" />
       `;
   const content = `
       <div class="modal-toolbar">
@@ -496,11 +489,12 @@ function renderModal(task) {
     `;
 
   return `
-    <div class="modal" id="figure-modal" aria-modal="true" role="dialog">
+    <div class="modal" id="figure-modal" aria-modal="true" aria-labelledby="figure-dialog-title" role="dialog">
       <div class="modal-card">
         <div class="modal-header" style="background:${task.color}">
           <div>
-            <h3 class="section-title" style="font-size:clamp(1.8rem,1.2rem + 1.2vw,2.8rem);margin-top:0.5rem;">${task.title}</h3>
+            <div class="figure-number">${task.figureLabel}</div>
+            <h3 id="figure-dialog-title" class="section-title" style="font-size:clamp(1.8rem,1.2rem + 1.2vw,2.8rem);margin-top:0.5rem;">${task.title}</h3>
           </div>
           <button class="modal-close" id="close-modal" type="button">Close</button>
         </div>
@@ -546,6 +540,7 @@ function renderApp() {
             <a href="#overview">Overview</a>
             <a href="#resources">Resources</a>
             <a href="#tasks">Tasks</a>
+            <a href="#metrics">Evaluation</a>
           </nav>
           <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
         </div>
@@ -563,27 +558,26 @@ function renderApp() {
               <div class="eyebrow">Benchmark Overview</div>
               <h2>Benchmarking virtual cell models for in-the-wild perturbation response</h2>
               <p class="hero-copy">
-                VCBench evaluates virtual cell models on unseen cellular contexts, unseen perturbations,
-                and cross-dataset integration, alongside metric-specific performance and compute cost.
+                VCBench tests how models predict transcriptional responses when the cell background,
+                perturbation or study was held out. It measures how much training support remains
+                and which parts of the response the models recover.
               </p>
               <div class="hero-actions">
                 <a class="button primary" href="#resources">Datasets and models</a>
                 <a class="button secondary" href="#tasks">View tasks</a>
-                <a class="button secondary" href="https://doi.org/10.48550/arXiv.2604.27646" target="_blank" rel="noreferrer">arXiv</a>
+                <a class="button secondary" href="https://doi.org/10.48550/arXiv.2604.27646" target="_blank" rel="noreferrer">arXiv preprint</a>
               </div>
               <div class="metrics-strip">
-                ${renderStatCard("Scenarios", "Unseen cells, unseen perturbations, and cross-dataset integration.", "#F3FBFA")}
-                ${renderStatCard("Metric View", "Global correlation, DEG recovery, and compute cost are reported separately.", "#F2F8FB")}
-                ${renderStatCard("Coverage", `${DATASETS.length} datasets and ${MODELS.length} models in this benchmark.`, "#F7F7F1")}
+                ${renderStatCard("Scenarios", "Cell-context, perturbation and cross-study holdouts.", "#F3FBFA")}
+                ${renderStatCard("Metric View", "Gene recovery, direction, magnitude and correlation.", "#F2F8FB")}
+                ${renderStatCard("Coverage", `${DATASETS.length} packages from seven studies; ${MODELS.length} models.`, "#F7F7F1")}
               </div>
             </div>
             <div class="overview-figure-panel">
-              <img class="overview-figure" src="./assets/figures/fig1.png" alt="VCBench overview figure" />
-              <div class="hero-caption overview-caption">
-                <div>
-                  <strong>Benchmark overview</strong>
-                </div>
-              </div>
+              <button class="overview-figure-button" data-open-task="framework" type="button">
+                <img class="overview-figure" src="${FRAMEWORK_SECTION.preview}" alt="VCBench training, prediction, benchmark scenarios and evaluation workflow" />
+                <span class="hero-caption overview-caption"><strong>Figure 1 · Benchmark overview</strong><span class="open-pill">View</span></span>
+              </button>
             </div>
           </div>
         </section>
@@ -594,12 +588,12 @@ function renderApp() {
               <div class="section-kicker">Resources</div>
               <h3 class="section-title">Datasets and models in the benchmark</h3>
               <p class="section-copy">
-                The benchmark includes seven perturbation datasets and eleven models,
-                spanning additive baselines, latent-variable models, graph methods, and foundation-model-based approaches.
+                The core benchmark includes nine data packages from seven studies and nine models,
+                including three reference baselines.
               </p>
             </div>
             <div class="resource-panels">
-              ${renderResourceCard("Datasets", DATASETS, "#F3FBFA")}
+              ${renderResourceCard("Data packages", DATASETS, "#F3FBFA")}
               ${renderResourceCard("Models", MODELS, "#E7F1FB")}
             </div>
           </div>
@@ -611,14 +605,13 @@ function renderApp() {
               <div class="section-kicker">Framework</div>
               <h3 class="section-title">How the benchmark is organized</h3>
               <p class="section-copy">
-                The pipeline standardizes preprocessing, evaluates each setting separately,
-                and reads results through task-specific metrics and model selection guidance.
+                Each task specifies what is held out and what training information remains available.
               </p>
             </div>
             <div class="steps">
               ${renderStepCard("01", "Standardize data", "Harmonize datasets, preprocessing, gene space, and metadata under a shared benchmark pipeline.")}
-              ${renderStepCard("02", "Benchmark by scenario", "Evaluate models under unseen-cell, unseen-perturbation, and cross-dataset integration settings.")}
-              ${renderStepCard("03", "Interpret and choose", "Use metric-aware evaluation and the guidance figure to support practical model selection.")}
+              ${renderStepCard("02", "Benchmark by scenario", "Hold out cellular backgrounds, genetic and chemical perturbations, or study responses.")}
+              ${renderStepCard("03", "Interpret and choose", "Compare how well models recover different properties of the response.")}
             </div>
           </div>
         </section>
@@ -627,10 +620,9 @@ function renderApp() {
           <div class="container">
             <div class="section-heading">
               <div class="section-kicker">Main Tasks</div>
-              <h3 class="section-title">Three benchmark tasks</h3>
+              <h3 class="section-title">Prediction under three kinds of holdout</h3>
               <p class="section-copy">
-                The benchmark centers on three settings: unseen cells,
-                unseen perturbations, and cross-dataset integration.
+                Guided splits test conditions farther from training. Fixed-target comparisons test which changes to training data improve cross-study prediction.
               </p>
             </div>
             <div class="tasks-grid">
@@ -639,53 +631,21 @@ function renderApp() {
           </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="metrics">
           <div class="container">
             <div class="section-heading">
-              <div class="section-kicker">Metric View</div>
-              <h3 class="section-title">Metric-dependent evaluation</h3>
+              <div class="section-kicker">Evaluation</div>
+              <h3 class="section-title">Metrics and training objectives</h3>
               <p class="section-copy">
-                We report 13 metrics across 3 complementary families.
-                Each family captures a different biological aspect of perturbation
-                response, and model rankings shift accordingly.
+                Model rankings depend on the task and on which properties of the response are measured. The six shared metrics summarize model ranks by task; the loss comparison shows why the individual measures still matter.
               </p>
             </div>
             <div class="metric-family-grid">
               ${METRIC_FAMILIES.map(renderMetricFamily).join("")}
             </div>
-            <div class="metric-findings">
-              <div class="label">Key findings</div>
-              <div class="metric-findings-grid">
-                ${METRIC_KEY_FINDINGS.map(renderMetricFinding).join("")}
-              </div>
-            </div>
-            <div class="metric-figure-board">
-              <figure class="metric-figure-card">
-                <img
-                  class="metric-figure-img"
-                  src="./assets/figures/fig5-hires_1.png"
-                  alt="Metric correlation matrix and pairwise scatter plots between metrics"
-                />
-                <figcaption class="metric-figure-caption">
-                  <strong>Metric relationships.</strong>
-                  Pairwise correlations among the 10 evaluation metrics. Correlation-based
-                  and distance-based metrics form two distinct clusters, while PCC sits apart
-                  with weak ties to the rest.
-                </figcaption>
-              </figure>
-              <figure class="metric-figure-card">
-                <img
-                  class="metric-figure-img"
-                  src="./assets/figures/fig5-hires_2.png"
-                  alt="Compute cost: DEOverlap, peak GPU memory, and runtime across models"
-                />
-                <figcaption class="metric-figure-caption">
-                  <strong>Compute cost.</strong>
-                  DEOverlap, peak GPU memory, and runtime as functions of cell number and
-                  batch size. Models differ substantially in scaling behavior, with several
-                  large models showing steep memory and runtime growth.
-                </figcaption>
-              </figure>
+            <div class="guidance-board metric-results">
+              ${renderTaskCard(METRICS_SECTION)}
+              ${renderTaskRanks()}
             </div>
           </div>
         </section>
@@ -693,11 +653,10 @@ function renderApp() {
         <section class="section alt">
           <div class="container">
             <div class="section-heading">
-              <div class="section-kicker">Selection &amp; Integration</div>
-              <h3 class="section-title">Selection &amp; Integration Guidance</h3>
+              <div class="section-kicker">Guidance</div>
+              <h3 class="section-title">From benchmark design to held-out evaluation</h3>
               <p class="section-copy">
-                Use the workflow on the left to narrow model choices for a given task and compute budget.
-                The steps below show how to plug a new model into the benchmark pipeline.
+                Use the workflow to plan computational validation and report results on a separate OOD test set.
               </p>
             </div>
 
@@ -706,7 +665,7 @@ function renderApp() {
                 ${GUIDANCE_SECTION ? renderTaskCard(GUIDANCE_SECTION) : ""}
               </div>
               <aside class="guidance-decisions">
-                <div class="label">Step-by-step selection</div>
+                <div class="label">Evaluation steps</div>
                 <ol class="decision-list">
                   ${GUIDANCE_DECISIONS.map(renderGuidanceDecision).join("")}
                 </ol>
@@ -763,7 +722,6 @@ function renderApp() {
 }
 
 function attachEvents() {
-  const app = document.getElementById("app");
   const menuToggle = document.getElementById("menu-toggle");
   const mobileNav = document.getElementById("mobile-nav");
 
@@ -779,10 +737,11 @@ function attachEvents() {
       if (task) {
         currentZoom = 1;
         dragState = null;
-        activeTask = task;
+        activeTrigger = trigger;
         document.body.insertAdjacentHTML("beforeend", renderModal(task));
         document.body.style.overflow = "hidden";
         updateZoom();
+        document.getElementById("close-modal").focus();
       }
       return;
     }
@@ -893,7 +852,8 @@ function closeModal() {
     modal.remove();
     document.body.style.overflow = "";
     dragState = null;
-    activeTask = null;
+    activeTrigger?.focus({ preventScroll: true });
+    activeTrigger = null;
   }
 }
 
